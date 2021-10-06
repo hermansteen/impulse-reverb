@@ -2,6 +2,7 @@ let mySound
 let rawSound
 let myImpulse
 let savedURL
+let slider
 const volume = document.getElementById('volume')
 const width = window.innerWidth
 const height = window.innerHeight
@@ -16,18 +17,14 @@ function preload () {
   myImpulse.addImpulse('assets/impulses/middleLeft.wav')
   myImpulse.addImpulse('assets/impulses/frontRight.wav')
   myImpulse.addImpulse('assets/impulses/middleRight.wav')
-  mySound.setVolume(0.5)
 }
 
 function changeFile () {
   mySound.setPath('assets/audio/intro-tna004')
   rawSound.setPath('assets/audio/intro-tna004')
   myImpulse.process(mySound)
-}
-
-function changeVolume () {
-  mySound.setVolume(volume.value)
-  rawSound.setVolume(volume.value)
+  mySound.pause()
+  rawSound.pause()
 }
 
 function setup () {
@@ -37,6 +34,7 @@ function setup () {
   fft = new p5.FFT()
   mySound.disconnect()
   myImpulse.process(mySound)
+  slider = createSlider(0, 1, 0.5, 0.2).parent('sliderParent')
 }
 
 function draw () {
@@ -61,17 +59,17 @@ function draw () {
     vertex(x, y)
   }
   endShape()
+  mySound.setVolume(slider.value())
+  rawSound.setVolume(slider.value() - 0.15)
 }
 
 function toggleRaw () {
   if (mySound.isPlaying()) {
     mySound.pause()
-    console.log(mySound.currentTime())
     rawSound.jump(Math.ceil(mySound.currentTime()))
     rawSound.play()
   } else if (rawSound.isPlaying()) {
     rawSound.pause()
-    console.log(rawSound.currentTime())
     mySound.jump(Math.ceil(rawSound.currentTime()))
     mySound.play()
   } else {
@@ -98,4 +96,9 @@ function changeImpulse (id) {
     mySound.jump(rawSound.currentTime())
     mySound.play()
   }
+  const activeElements = document.getElementsByClassName('active')
+  if (activeElements.length !== 0) {
+    activeElements[0].classList.toggle('active')
+  }
+  document.getElementById(id).classList.toggle('active')
 }

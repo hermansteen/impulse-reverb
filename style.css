@@ -7,6 +7,7 @@ body {
 display:grid;
 grid-template-columns: 1fr 1fr;
 grid-template-rows:1fr;
+margin:10px;
 }
 
 img {
@@ -16,11 +17,14 @@ max-width:500px;
 #leftSide {
 display:flex;
 flex-direction: column;
+width:90%;
+margin:auto;
 }
 
-#buttonWrapper {
-margin-top:10px;
-margin-left:10px;
+#canvasParent {
+  margin:0;
+  height:100%;
+  width:100%;
 }
 
 circle {
@@ -29,9 +33,9 @@ circle {
 }
 
 circle:hover {
-  fill:red !important;
+  fill:green;
 }
 
-circle .active {
-  fill:red !important;
+.active {
+  fill:blue !important;
 }
