@@ -19,9 +19,9 @@ function preload () {
   myImpulse.addImpulse('assets/impulses/middleRight.wav')
 }
 
-function changeFile () {
-  mySound.setPath('assets/audio/intro-tna004')
-  rawSound.setPath('assets/audio/intro-tna004')
+function changeFile (fileName) {
+  mySound.setPath('assets/audio/' + fileName)
+  rawSound.setPath('assets/audio/' + fileName)
   myImpulse.process(mySound)
   mySound.pause()
   rawSound.pause()
